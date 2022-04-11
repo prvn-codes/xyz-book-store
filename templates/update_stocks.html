@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Stock</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+</head>
+<body>
+    <div class="update_stock">
+        <h1>Update Stocks</h1>
+        <label for="select_book">Select book : </label>
+        <select name="select_book" id="select_book">
+          {%for book in book_stock %}
+            <option value={{book[1]}}>{{book[0]}} : {{book[1]}}</option>
+          {%endfor%}
+        </select>
+        <br><br>
+        <label for="book_count">New Stock : </label>
+        <input type="number" id="book_count" />
+        <input type="submit" value="Add Stock" class="submit">
+    </div>
+    
+</body>
+</html>

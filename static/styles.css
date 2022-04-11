@@ -1,0 +1,92 @@
+
+a {
+  text-decoration: none;
+  color: #222;
+}
+
+ul {
+  list-style: none;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+  text-decoration: none;
+  padding: 1px 5px 1px 5px;
+}
+
+
+
+
+form {
+  width: 80%;
+  margin: 0 10% 0 auto;
+}
+
+label,
+input {
+  display: inline-block;
+}
+
+label {
+  width: 30%;
+  text-align: right;
+}
+
+label+input {
+  width: 30%;
+  margin: 0 30% 1% 4%;
+}
+
+select{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit {
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.home_block {
+  background-color: burlywood;
+  margin: 0.5em auto auto auto;
+  padding: 1px 1px 1px 1px;
+  font-size: 22vh;
+  text-align: center;
+  max-width: 3em;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.header_nav {
+  margin: auto;
+  padding: 0.75rem 0.5rem 0.5rem 0.5rem;
+  font-size: 2rem;
+}
+.header_nav > ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.stock_options{
+  margin-top: 10%;
+  font-size: 40px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50% 50% auto auto;
+}
+
+.add_stock,
+.update_stock {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

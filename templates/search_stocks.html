@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Stock</title>
+</head>
+<body>
+    <div class="search_stock">
+        <table>
+            {%for book in book_stock %}
+                <tr>
+                    <td>{{book[0]}}</td>
+                    <td>{{book[1]}}</td>
+                    <td>{{book[2]}}</td>
+                    <td>{{book[3]}}</td>
+                </tr>
+          {%endfor%}
+        </table>
+    </div>
+</body>
+</html>
