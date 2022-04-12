@@ -1,4 +1,4 @@
-from unittest import result
+
 from flask import Flask, render_template, request, redirect, url_for
 from flaskext.mysql import MySQL
 
@@ -7,13 +7,27 @@ app = Flask(__name__)
 mysql = MySQL()
 
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'root@123'
-app.config['MYSQL_DATABASE_DB'] = 'xyzbookstore'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
+app.config['MYSQL_DATABASE_DB'] = 'mysql'
+app.config['MYSQL_DATABASE_HOST'] = 'db'
 app.config['MYSQL_DATABASE_PORT'] = 3306
 
 
 mysql.init_app(app)
+conn = mysql.connect()
+
+with open("./db/init.sql",'r') as file1:
+    sql_cmds = file1.read()
+
+sql_cmds1 = sql_cmds.split(";")
+
+for i in range(0,len(sql_cmds1)-1):
+    query = sql_cmds1[i] + ';'
+    cursor = conn.cursor()
+    cursor.execute(query)
+conn.commit() 
+conn.close()
+app.config['MYSQL_DATABASE_DB'] = 'xyzbookstore'
 conn = mysql.connect()
 
 app.secret_key = "super secret key"
@@ -168,4 +182,4 @@ def index_route():
     return render_template('index.html')
 
 if __name__ == '__main__':
-  app.run(debug=True,port=80)
+  app.run(debug=True,host='0.0.0.0',port=80)

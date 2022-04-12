@@ -1,0 +1,14 @@
+version: "3"
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  web:
+    image: prxveen/xyzbookstore
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
