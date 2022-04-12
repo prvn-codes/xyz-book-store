@@ -30,7 +30,7 @@ conn.close()
 app.config['MYSQL_DATABASE_DB'] = 'xyzbookstore'
 conn = mysql.connect()
 
-app.secret_key = "super secret key"
+app.secret_key = "super-secret-key"
 
 @app.route("/home")
 def home_route():
@@ -52,7 +52,8 @@ def add_stock_route():
         author_info = request.form['author_info']
         stock = request.form['stock']
         print(book_name + " " + book_desc + " " + author_info)
-        query = f"INSERT INTO book_stock(book_name,book_desc,author_info,stock) VALUES('{book_name}','{book_desc}','{author_info}','{stock}');"
+        query = "INSERT INTO book_stock(book_name,book_desc,author_info,stock) VALUES('"+book_name+"','"+book_desc+"','"+author_info+"',"+stock+");"
+        
         cursor.execute(query)
         conn.commit()
     cursor.close()
