@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flaskext.mysql import MySQL
+from pymysql import NULL
 
 app = Flask(__name__)
 
@@ -27,9 +28,22 @@ def stocks_route():
     
     return render_template('stocks.html')
 
-@app.route("/add_stock")
+@app.route("/add_stock",methods=['GET','POST'])
 def add_stock_route():
+    conn = mysql.connect()
+    cursor = conn.cursor()
     
+    if request.method == 'POST':
+        book_name = request.form['book_name']
+        book_desc = request.form['book_desc']
+        author_info = request.form['author_info']
+        stock = request.form['stock']
+        print(book_name + " " + book_desc + " " + author_info)
+        query = f"INSERT INTO book_stock(book_name,book_desc,author_info,stock) VALUES('{book_name}','{book_desc}','{author_info}','{stock}');"
+        cursor.execute(query)
+        conn.commit()
+    cursor.close()
+    conn.close()
     return render_template('add_stocks.html')
 
 @app.route("/update_stock",methods=['GET','POST'])
@@ -39,13 +53,19 @@ def update_stock_route():
     cursor.execute('SELECT * FROM book_stock;')
     results = cursor.fetchall()
     if request.method == 'POST':
-        book_name = request.form.get('select_book_name')
+        book_name = request.form['select_book_name']
         new_stock = request.form['stock_count']
         cursor.execute("select stock from book_stock where book_name='"+book_name+"';")
         old_stock = cursor.fetchone()
-        stock = old_stock[0] + int(new_stock)    
-        #print(f"update book_stock set stock = {stock} where book_name = '{book_name}';")
-        cursor.execute(f"update book_stock set stock = {stock} where book_name = '{book_name}';")
+        stock = int(new_stock)
+        if old_stock:
+            stock = old_stock[0] + int(new_stock)
+        query = "UPDATE book_stock SET stock = "+str(stock)+" WHERE book_name = '" + book_name +"';"
+        cursor.execute(query)
+        conn.commit()
+        print(query)
+    cursor.close()
+    conn.close()
     return render_template('update_stocks.html',book_stock=results)
 
 @app.route("/view_stock")

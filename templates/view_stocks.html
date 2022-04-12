@@ -14,11 +14,11 @@
         <table>
             {%for book in book_stock %}
                 <tr>
-                    <td>{{book[0]}}</td>
-                    <td>{{book[1]}}</td>
-                    <td>{{book[2]}}</td>
-                    <td>{{book[3]}}</td>
-                    <td>{{book[4]}}</td>
+                    <td>Book UID : {{book[0]}}</td> 
+                    <td>Book Name : {{book[1]}}</td> 
+                    <td>Book Desc : {{book[2]}}</td> 
+                    <td>Author Info : {{book[3]}}</td> 
+                    <td>Available Stock : {{book[4]}}</td> 
                 </tr>
           {%endfor%}
         </table>
