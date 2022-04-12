@@ -5,14 +5,14 @@ USE xyzbookstore;
 CREATE TABLE book_stock(
 	UID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     book_name TEXT NOT NULL,
-    book_edition TEXT NOT NULL,
+    book_desc TEXT NOT NULL,
     author_info TEXT,
     stock INT
 );
 
-insert into book_stock(book_name,book_edition,author_info,stock) values ('Book 1','Volume 1','Author 1, Author 2',5);
-insert into book_stock(book_name,book_edition,author_info,stock) values ('Book 2','Volume 1','Author 3, Author 4',6);
-insert into book_stock(book_name,book_edition,author_info,stock) values ('Book 3','Volume 1','Author 5, Author 6',7);
+insert into book_stock(book_name,book_desc,author_info,stock) values ('Book 1','Volume 1','Author 1, Author 2',5);
+insert into book_stock(book_name,book_desc,author_info,stock) values ('Book 2','Volume 1','Author 3, Author 4',6);
+insert into book_stock(book_name,book_desc,author_info,stock) values ('Book 3','Volume 1','Author 5, Author 6',7);
 
 create table membership(
 	id int auto_increment not null primary key,
