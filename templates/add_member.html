@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Member</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    {% include 'header.html' %}
+    <div class="add_stock">
+      <h1>Add New Mamber</h1>
+        <form action="" method="POST">
+
+          <label for="member_name">Member Name : </label>
+          <input type="text" id="member_name" name="member_name" /> 
+          
+          <label for="member_email">Member Email : </label>
+          <input type="text" id="member_email" name="member_email" />
+
+          <label for="duration">Membership Duration in (months) : </label>
+          <input type="number" id="duration" name="duration" />
+          
+          <br><br>
+          <input type = "submit" value ="Add Member" />
+        </form>
+    </div>
+
+  </body>
+</html>

@@ -12,13 +12,18 @@
         <h1>View Stocks
         </h1>
         <table>
+            <th><b>Book UID </b></th>
+            <th><b>Book Name </b></th>
+            <th><b>Book Desc </b></th>
+            <th><b>Author Info </b></th>
+            <th><b>Available Stock </b></th>
             {%for book in book_stock %}
                 <tr>
-                    <td>Book UID : {{book[0]}}</td> 
-                    <td>Book Name : {{book[1]}}</td> 
-                    <td>Book Desc : {{book[2]}}</td> 
-                    <td>Author Info : {{book[3]}}</td> 
-                    <td>Available Stock : {{book[4]}}</td> 
+                    <td>{{book[0]}}</td> 
+                    <td>{{book[1]}}</td> 
+                    <td>{{book[2]}}</td> 
+                    <td>{{book[3]}}</td> 
+                    <td>{{book[4]}}</td> 
                 </tr>
           {%endfor%}
         </table>

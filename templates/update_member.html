@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Member</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+</head>
+<body>
+  {% include 'header.html' %}
+  <div class="update_stock">
+    <h1>Extend Membership</h1>
+    <form method="POST" action="">
+      <label for="select_member">Select Member : </label>
+      <select name="select_memeber_name" id="select_book">
+        {%for member in members %}
+          <option value={{member[1]}}>{{member[1]}}</option>
+        {%endfor%}
+      </select>
+      <br><br>
+      <label for="book_count">Add Duration (in days): </label>
+      <input type="number" name='duration' id="book_count" />
+      <input type="submit" value="Extend Membership" class="submit">
+    </form>
+  </div>
+</body>
+</html>

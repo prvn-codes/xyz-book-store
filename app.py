@@ -1,3 +1,5 @@
+from ast import Return
+from unittest import result
 from flask import Flask, render_template, request
 from flaskext.mysql import MySQL
 from pymysql import NULL
@@ -7,7 +9,7 @@ app = Flask(__name__)
 mysql = MySQL()
 
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Root@123'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'root@123'
 app.config['MYSQL_DATABASE_DB'] = 'xyzbookstore'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['MYSQL_DATABASE_PORT'] = 3306
@@ -25,7 +27,6 @@ def home_route():
 
 @app.route("/stocks")
 def stocks_route():
-    
     return render_template('stocks.html')
 
 @app.route("/add_stock",methods=['GET','POST'])
@@ -91,6 +92,48 @@ def lending_route():
 def membership_route():
     return render_template('membership.html')
 
+@app.route("/add_member",methods=['GET','POST'])
+def add_member_route():
+    if request.method == 'POST':
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        mname = request.form['member_name']
+        memail = request.form['member_email']
+        duration = request.form['duration']
+        print(f"INSERT INTO membership(mname,email,duration) values('{mname}','{memail}'.'{duration}')")
+        cursor.execute(f"INSERT INTO membership(mname,email,duration) values('{mname}','{memail}',{duration})")
+        conn.commit()
+    return render_template('add_member.html')
+
+@app.route('/update_member',methods=['POST','GET'])
+def update_member_route():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM membership;')
+    results = cursor.fetchall()
+    if request.method == 'POST':
+        mem_name = request.form['select_memeber_name']
+        duration = request.form['duration']
+        cursor.execute("select duration from membership where mname='"+mem_name+"';")
+        old_duration = cursor.fetchone()
+        duration = int(duration)
+        if old_duration:
+            duration = old_duration[0] + int(duration)
+        query = "UPDATE membership SET duration = "+str(duration)+" WHERE mname = '" + mem_name +"';"
+        cursor.execute(query)
+        conn.commit()
+        print(query)
+    cursor.close()
+    conn.close()
+    return render_template('update_member.html',members=results)
+
+@app.route("/view_members",methods=['POST','GET'])
+def view_member_route():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM membership;')
+    results = cursor.fetchall()
+    return render_template('view_members.html',members=results)
 
 @app.route("/")
 def index_route():

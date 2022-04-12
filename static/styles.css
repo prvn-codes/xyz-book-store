@@ -90,3 +90,25 @@ select{
   justify-content: center;
   text-align: center;
 }
+
+table{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2%;
+  table-layout: auto;
+  width: 100%; 
+}
+
+th,td {
+  border: 1px solid black;
+}
+
+.membership{
+  margin-top: 10%;
+  font-size: 40px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50% 50% auto auto;
+}
