@@ -11,19 +11,21 @@
     />
 </head>
 <body>
-    <div class="update_stock">
-        <h1>Update Stocks</h1>
-        <label for="select_book">Select book : </label>
-        <select name="select_book" id="select_book">
-          {%for book in book_stock %}
-            <option value={{book[1]}}>{{book[0]}} : {{book[1]}}</option>
-          {%endfor%}
-        </select>
-        <br><br>
-        <label for="book_count">New Stock : </label>
-        <input type="number" id="book_count" />
-        <input type="submit" value="Add Stock" class="submit">
-    </div>
-    
+  {% include 'header.html' %}
+  <div class="update_stock">
+    <h1>Update Stocks</h1>
+    <form method="POST">
+      <label for="select_book">Select book : </label>
+      <select name="select_book_name" id="select_book">
+        {%for book in book_stock %}
+          <option value={{book[1]}}>{{book[0]}} : {{book[1]}}</option>
+        {%endfor%}
+      </select>
+      <br><br>
+      <label for="book_count">New Stock : </label>
+      <input type="number" name='stock_count' id="book_count" />
+      <input type="submit" value="Add Stock" class="submit">
+    </form>
+  </div>
 </body>
 </html>

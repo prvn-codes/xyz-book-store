@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flaskext.mysql import MySQL
 
 app = Flask(__name__)
@@ -6,7 +6,7 @@ app = Flask(__name__)
 mysql = MySQL()
 
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'root@123'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'Root@123'
 app.config['MYSQL_DATABASE_DB'] = 'xyzbookstore'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['MYSQL_DATABASE_PORT'] = 3306
@@ -32,21 +32,29 @@ def add_stock_route():
     
     return render_template('add_stocks.html')
 
-@app.route("/update_stock")
+@app.route("/update_stock",methods=['GET','POST'])
 def update_stock_route():
     conn = mysql.connect()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM book_stock;')
     results = cursor.fetchall()
+    if request.method == 'POST':
+        book_name = request.form.get('select_book_name')
+        new_stock = request.form['stock_count']
+        cursor.execute("select stock from book_stock where book_name='"+book_name+"';")
+        old_stock = cursor.fetchone()
+        stock = old_stock[0] + int(new_stock)    
+        #print(f"update book_stock set stock = {stock} where book_name = '{book_name}';")
+        cursor.execute(f"update book_stock set stock = {stock} where book_name = '{book_name}';")
     return render_template('update_stocks.html',book_stock=results)
 
-@app.route("/search_stock")
+@app.route("/view_stock")
 def search_stock_route():
     conn = mysql.connect()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM book_stock;')
     results = cursor.fetchall()
-    return render_template('search_stocks.html',book_stock=results)
+    return render_template('view_stocks.html',book_stock=results)
 
 
 @app.route("/billing")
