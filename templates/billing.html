@@ -14,7 +14,15 @@
     {% include 'header.html' %}
     <div class="billing_class">
       <h1>Billing</h1>
-      
+      <form method="POST" action="">
+        <label for="books_list">Books (comma separated) : </label>
+        <input type="text" name="books_list" id="books_list"/>
+
+        <label for="price_list">Book Price (comma separated) : </label>
+        <input type="text" name="price_list" id="price_list"/>
+
+        <input type="submit" value="Print" class="submit">
+      </form>
     </div>
   </body>
 </html>

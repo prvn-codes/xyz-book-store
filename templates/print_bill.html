@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+</head>
+<body>
+    <div class="search_stock">
+        <h1>Bill
+        </h1>
+        <table>
+            <th><b>Book</b></th>
+            <th><b>Price</b></th>
+            {%for bill in bills %}
+                <tr>
+                    <td>{{bill[0]}}</td> 
+                    <td>{{bill[1]}}</td> 
+                </tr>
+          {%endfor%}
+        </table>
+    </div>
+</body>
+</html>

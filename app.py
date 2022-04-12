@@ -1,8 +1,6 @@
-from ast import Return
 from unittest import result
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flaskext.mysql import MySQL
-from pymysql import NULL
 
 app = Flask(__name__)
 
@@ -75,12 +73,42 @@ def search_stock_route():
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM book_stock;')
     results = cursor.fetchall()
+    print(results)
     return render_template('view_stocks.html',book_stock=results)
 
 
-@app.route("/billing")
+@app.route("/billing",methods=['GET','POST'])
 def billing_route():
+    if request.method == 'POST':
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        books = request.form['books_list']
+        price_ = request.form['price_list']
+        query = "INSERT INTO bill(books,price) VALUES('"+books+"','"+price_+"');"
+        #print(query)
+        cursor.execute(query)
+        conn.commit()
+        return redirect(url_for('print_bill_route'))
     return render_template('billing.html')
+
+
+@app.route('/print_bill')
+def print_bill_route():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute("select * from bill")
+    results = cursor.fetchall()
+    result = results[len(results)-1]
+    books = result[1].split(",")
+    price_ = result[2].split(",")
+    bills = list()
+    total = 0
+    print("=>",len(books),books)
+    for i in range(0,len(books)):
+         bills.append(list((books[i],price_[i])))
+         total += int(price_[i])
+    bills.append(list(("Total",total)))     
+    return render_template('print_bill.html',bills=bills)
 
 
 @app.route("/lending")
